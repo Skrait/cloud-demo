@@ -6,12 +6,27 @@ spring:
     username: root
     password: 122112
     driver-class-name: com.mysql.jdbc.Driver
+  application:
+      name: orderservice # order服务名称
 mybatis:
   type-aliases-package: cn.itcast.user.pojo
   configuration:
     map-underscore-to-camel-case: true
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
 logging:
   level:
     cn.itcast: debug
   pattern:
     dateformat: MM-dd HH:mm:ss:SSS
+eureka:
+  client:
+    service-url: # eureka的地址信息
+      defaultZone: http://127.0.0.1:10086/eureka
+userservice:
+  ribbon:
+    NFLoadBalancerRuleClassName: com.netflix.loadbalancer.RandomRule # 随机负载均衡规则
+ribbon:
+  eager-load:
+    enabled: true
+    clients:  #指定饥饿加载的名字,可写多个服务名称
+      - userservice
